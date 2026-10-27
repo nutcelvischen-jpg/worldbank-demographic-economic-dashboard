@@ -1,0 +1,12 @@
+sub_crops/
+video_frames/
+*.pyc
+__pycache__/
+clean_html.py
+crop_subs.py
+extract_user_html.py
+page.html
+parse_page.py
+user_portal.html
+user_portal_clean.html
+getting_old_before_rich_dashboard.html

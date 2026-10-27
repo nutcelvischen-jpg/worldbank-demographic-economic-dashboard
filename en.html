@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Old Before Getting Rich | World Bank Data360 Student Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Top Nav / Action Bar -->
+    <nav class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-700/60">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🌐</span>
+        <span class="font-bold text-white tracking-wide text-sm md:text-base">World Bank Data360 Student Demo Project</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-600 transition-colors flex items-center gap-1.5">
+          <span>🇹🇼</span> 中文版 (Chinese)
+        </a>
+        <a href="https://github.com/nutcelvischen-jpg/worldbank-demographic-economic-dashboard" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Repo
+        </a>
+      </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="badge bg-red-500/20 text-red-400 border border-red-500/30">Theme: Hint 3</span>
+          <span class="badge bg-amber-500/20 text-amber-300 border border-amber-500/30">Getting Old Before Getting Rich</span>
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">
+          Demographic Dynamics & Economic Performance Dashboard
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          Empirical Data Source: World Bank Data360 API (Database: <code>WB_WDI</code>)
+        </p>
+      </div>
+      <div class="text-xs bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60 max-w-md">
+        <span class="text-amber-400 font-semibold block mb-1">🎯 Core Student Prompt (Hint 3):</span>
+        <strong>Fact:</strong> China's population has begun shrinking, while its per capita GDP stands around $13,000 (vs. $80,000+ in the US).<br>
+        <strong>Guiding Question:</strong> Why is rapid aging significantly harder to navigate for middle-income countries than for advanced high-income nations?
+      </div>
+    </header>
+
+    <!-- Key Metrics Comparison Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Card 1: China Pop Growth -->
+      <div class="card relative overflow-hidden border-l-4 border-l-red-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">China Pop Growth (2023)</div>
+        <div class="text-3xl font-black text-red-400 mt-2 flex items-baseline gap-2">
+          -0.10%
+          <span class="text-xs font-normal text-slate-400">Total: 1.41B</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          Fertility rate dropped to <strong class="text-white">1.03</strong>, entering an era of sustained demographic contraction
+        </div>
+      </div>
+
+      <!-- Card 2: China GDP per Capita -->
+      <div class="card relative overflow-hidden border-l-4 border-l-amber-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">China GDP per Capita (2023)</div>
+        <div class="text-3xl font-black text-amber-400 mt-2 flex items-baseline gap-2">
+          $12,951
+          <span class="text-xs font-normal text-slate-400">Current USD</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          World Bank Classification: Borderline upper-middle income status
+        </div>
+      </div>
+
+      <!-- Card 3: US GDP per Capita -->
+      <div class="card relative overflow-hidden border-l-4 border-l-blue-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">US GDP per Capita (Benchmark)</div>
+        <div class="text-3xl font-black text-blue-400 mt-2 flex items-baseline gap-2">
+          $82,587
+          <span class="text-xs font-normal text-slate-400">6.38x higher than China</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          Backed by century-long capital accumulation, tech premium & immigration inflows
+        </div>
+      </div>
+
+      <!-- Card 4: Aging Rate Crossing -->
+      <div class="card relative overflow-hidden border-l-4 border-l-purple-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Population Aged 65+ (2023)</div>
+        <div class="text-3xl font-black text-purple-400 mt-2 flex items-baseline gap-2">
+          14.32%
+          <span class="text-xs font-normal text-slate-400">"Aged Society"</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          Crossed the standard 14% aging threshold at a rate faster than Japan's historical curve
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Chart 1: The 'Old Before Rich' Gap -->
+      <div class="card lg:col-span-7 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                📊 Per Capita Income When Crossing the 14% Aging Threshold
+              </h2>
+              <p class="text-xs text-slate-400">Comparing national wealth buffer upon officially becoming an "Aged Society" (65+ &gt; 14%)</p>
+            </div>
+            <span class="badge bg-amber-500/20 text-amber-300 border border-amber-500/30">3x–6x Wealth Gap</span>
+          </div>
+
+          <!-- SVG Bar Chart -->
+          <div class="w-full mt-4 bg-slate-900/60 p-4 rounded-xl border border-slate-700/60">
+            <svg id="barChart" viewBox="0 0 650 260" class="w-full h-auto">
+              <!-- Grid lines -->
+              <line x1="120" y1="30" x2="620" y2="30" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="80" x2="620" y2="80" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="130" x2="620" y2="130" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="180" x2="620" y2="180" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="230" x2="620" y2="230" stroke="#475569" stroke-width="1.5" />
+
+              <!-- X-Axis Labels -->
+              <text x="120" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$0</text>
+              <text x="245" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$20,000</text>
+              <text x="370" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$40,000</text>
+              <text x="495" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$60,000</text>
+              <text x="620" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$80,000</text>
+
+              <!-- Bars -->
+              <!-- USA -->
+              <text x="110" y="55" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">USA</text>
+              <rect x="120" y="40" width="465" height="24" rx="4" fill="#3b82f6" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>US crossed 14% with GDP per capita ~ $55,000+ (now $82,587)</title>
+              </rect>
+              <text x="595" y="56" fill="#60a5fa" font-size="11" font-weight="bold">$55,000+</text>
+
+              <!-- Germany -->
+              <text x="110" y="105" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">Germany</text>
+              <rect x="120" y="90" width="360" height="24" rx="4" fill="#6366f1" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>Germany crossed threshold early with robust pension endowments; now $54,777</title>
+              </rect>
+              <text x="490" y="106" fill="#a5b4fc" font-size="11" font-weight="bold">Advanced Wealth</text>
+
+              <!-- Japan -->
+              <text x="110" y="155" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">Japan</text>
+              <rect x="120" y="140" width="245" height="24" rx="4" fill="#06b6d4" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>Japan crossed 14% in 1994 with per capita GDP at $39,000</title>
+              </rect>
+              <text x="375" y="156" fill="#67e8f9" font-size="11" font-weight="bold">$39,000 (1994)</text>
+
+              <!-- China -->
+              <text x="110" y="205" fill="#fca5a5" font-size="12" font-weight="bold" text-anchor="end">China</text>
+              <rect x="120" y="190" width="81" height="24" rx="4" fill="#ef4444" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>China reached 14% with GDP per capita at only $12,951</title>
+              </rect>
+              <text x="210" y="206" fill="#ef4444" font-size="12" font-weight="extrabold">$12,951 (1/3 of Japan)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs bg-slate-800/60 p-3 rounded-lg border border-slate-700/50 text-slate-300">
+          <strong class="text-amber-400">💡 Analytical Insight:</strong>
+          Japan, Germany, and the US achieved industrial modernization and broad household wealth accumulation before aging ("Rich Before Old"). China, by contrast, hit demographic maturity at middle-income levels.
+        </div>
+      </div>
+
+      <!-- Interactive Calculator for Students -->
+      <div class="card lg:col-span-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              🧮 Interactive Simulator: Labor Contraction Impact
+            </h2>
+          </div>
+          <p class="text-xs text-slate-400 mb-4">
+            Under a standard Cobb-Douglas production model, when labor input (\(L\)) contracts, how much Total Factor Productivity (TFP) growth is required to maintain positive GDP expansion?
+          </p>
+
+          <div class="space-y-4 bg-slate-900/60 p-4 rounded-xl border border-slate-700/60">
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-300">Annual Workforce Shrinkage Rate:</span>
+                <span id="laborDropVal" class="text-red-400 font-bold">-1.0 % / year</span>
+              </div>
+              <input type="range" id="laborDropInput" min="0.2" max="2.5" step="0.1" value="1.0" class="w-full accent-red-500 cursor-pointer">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>-0.2% (Mild)</span>
+                <span>-1.0% (China Current)</span>
+                <span>-2.5% (Accelerated)</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-700">
+              <div class="text-xs text-slate-300 font-semibold mb-2">Simulated Economic Drag:</div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700/80">
+                  <div class="text-[11px] text-slate-400">Annual Potential GDP Loss</div>
+                  <div id="gdpLoss" class="text-base font-bold text-red-400">-0.60% GDP</div>
+                </div>
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700/80">
+                  <div class="text-[11px] text-slate-400">Required TFP Offset Growth</div>
+                  <div id="tfpRequired" class="text-base font-bold text-emerald-400">+0.86% / yr</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs text-slate-400 italic">
+          * Takeaway: Unless automation and technological innovation outpace the rate of workforce contraction, potential GDP growth steadily decelerates.
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Analytical Conclusions Section -->
+    <div class="card space-y-6">
+      <div class="border-b border-slate-700 pb-4">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          🎯 Comprehensive Analysis: Why Middle-Income Economies Suffer More from Aging
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Four Structural Pillars Explaining the Disproportionate Asymmetry
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Factor 1: Fiscal & Pension Buffer -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-red-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-lg mb-3">
+            1
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Fiscal & Pension Buffer Deficit</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Advanced economies enjoy multi-trillion-dollar sovereign and private pension pools amassed over generations. Middle-income nations, where social security systems were institutionalized recently, face an abrupt payout wave without sufficient pre-funded capital reserves.
+          </p>
+        </div>
+
+        <!-- Factor 2: Industrial Chain & Productivity -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-amber-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg mb-3">
+            2
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">The Value Chain Squeeze</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            As demographic dividends vanish, wage pressures push low-end manufacturing to cheaper rivals (Vietnam, India). Meanwhile, climbing into high-margin frontier industries (semiconductors, biotech) faces steep technological and capital hurdles, triggering the classic <strong>Middle-Income Trap</strong>.
+          </p>
+        </div>
+
+        <!-- Factor 3: Healthcare & Regional Inequality -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-emerald-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg mb-3">
+            3
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Rural-Urban Healthcare Divide</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Decades of rural-to-urban youth migration leave countryside towns filled with elderly dependents with inadequate geriatric and palliative infrastructure, creating acute family care burdens that reduce overall labor market mobility.
+          </p>
+        </div>
+
+        <!-- Factor 4: Immigration Elasticity -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-blue-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg mb-3">
+            4
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">Immigration Inelasticity</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            The US, Canada, and Western Europe use high purchasing power and open systems to absorb hundreds of thousands of working-age migrants annually. Middle-income countries possess neither the wage premium nor the policy architecture to recruit global talent at scale.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Student Assignment Guide -->
+    <div class="card bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-blue-500/40 space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="text-blue-400 text-xl">📘</span>
+        <h3 class="text-lg font-bold text-blue-300">How to Structure Your Economic Research Assignment</h3>
+      </div>
+      <div class="text-xs text-slate-300 space-y-2">
+        <p>This project serves as a live benchmark for submitting data-driven economic research papers:</p>
+        <ol class="list-decimal list-inside space-y-1.5 ml-1 text-slate-300">
+          <li><strong>API Data Acquisition:</strong> Query authoritative sources such as World Bank Data360 API (<code>WB_WDI</code> database) programmatically.</li>
+          <li><strong>Comparative Benchmarks:</strong> Establish explicit comparative baselines (e.g., middle-income vs. high-income economies) rather than isolated figures.</li>
+          <li><strong>Quantitative & Visual Rigor:</strong> Convert raw indicators into intuitive visual evidence illustrating structural inflection points.</li>
+          <li><strong>Mechanism-Driven Policy Analysis:</strong> Formulate hypotheses spanning fiscal, technological, and demographic levers.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 py-6 border-t border-slate-800">
+      World Bank Data360 Demonstration Project • Created for Academic and Educational Use
+    </footer>
+
+  </div>
+
+  <script>
+    const input = document.getElementById('laborDropInput');
+    const label = document.getElementById('laborDropVal');
+    const gdpLoss = document.getElementById('gdpLoss');
+    const tfpRequired = document.getElementById('tfpRequired');
+
+    function updateSim() {
+      const drop = parseFloat(input.value);
+      label.innerText = `-${drop.toFixed(1)} % / yr`;
+      const loss = drop * 0.6;
+      gdpLoss.innerText = `-${loss.toFixed(2)}% GDP`;
+      const tfp = loss * 1.43;
+      tfpRequired.innerText = `+${tfp.toFixed(2)}% / yr`;
+    }
+
+    input.addEventListener('input', updateSim);
+    updateSim();
+  </script>
+</body>
+</html>

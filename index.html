@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>未富先老 (Getting Old Before Getting Rich) | World Bank Data360 分析示範</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      padding: 1.5rem;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="p-4 md:p-8 min-h-screen">
+  <div class="max-w-7xl mx-auto space-y-8">
+    
+    <!-- Top Nav / Action Bar -->
+    <nav class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-700/60">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🌐</span>
+        <span class="font-bold text-white tracking-wide text-sm md:text-base">World Bank Data360 學生作業示範專案</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="en.html" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-600 transition-colors flex items-center gap-1.5">
+          <span>🇺🇸</span> English Version
+        </a>
+        <a href="https://github.com/nutcelvischen-jpg/worldbank-demographic-economic-dashboard" target="_blank" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub 原始碼
+        </a>
+      </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="badge bg-red-500/20 text-red-400 border border-red-500/30">主題：Hint 3</span>
+          <span class="badge bg-amber-500/20 text-amber-300 border border-amber-500/30">未富先老的難題 (Getting Old Before Rich)</span>
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">
+          人口發展與經濟情況分析儀表板
+        </h1>
+        <p class="text-slate-400 text-sm mt-1">
+          資料來源：World Bank Data360 API (世界發展指標庫 <code>WB_WDI</code>)
+        </p>
+      </div>
+      <div class="text-xs bg-slate-800/80 p-3.5 rounded-lg border border-slate-700/60 max-w-md">
+        <span class="text-amber-400 font-semibold block mb-1">🎯 學生思考題核心（Hint 3）：</span>
+        <strong>事實：</strong>中國總人口開始縮減，但人均 GDP 僅約 $13,000 美元（相較於美國 $80,000+ 美元）。<br>
+        <strong>問題：</strong>為什麼人口高齡化對「中等所得國家」的衝擊，會比「高所得國家」更為嚴峻且難以承受？
+      </div>
+    </header>
+
+    <!-- Key Metrics Comparison Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- Card 1: China Pop Growth -->
+      <div class="card relative overflow-hidden border-l-4 border-l-red-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">中國人口增長率 (2023)</div>
+        <div class="text-3xl font-black text-red-400 mt-2 flex items-baseline gap-2">
+          -0.10%
+          <span class="text-xs font-normal text-slate-400">總人口 14.11 億</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          總和生育率跌至 <strong class="text-white">1.03</strong>，進入歷史性人口負成長通道
+        </div>
+      </div>
+
+      <!-- Card 2: China GDP per Capita -->
+      <div class="card relative overflow-hidden border-l-4 border-l-amber-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">中國人均 GDP (2023)</div>
+        <div class="text-3xl font-black text-amber-400 mt-2 flex items-baseline gap-2">
+          $12,951
+          <span class="text-xs font-normal text-slate-400">現價美元</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          世界銀行劃分標準：仍位於「中等偏上所得」門檻邊緣
+        </div>
+      </div>
+
+      <!-- Card 3: US GDP per Capita -->
+      <div class="card relative overflow-hidden border-l-4 border-l-blue-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">美國人均 GDP (高所得對照)</div>
+        <div class="text-3xl font-black text-blue-400 mt-2 flex items-baseline gap-2">
+          $82,587
+          <span class="text-xs font-normal text-slate-400">約為中國 6.38 倍</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          具備充沛資本存量、高科技定價權與國際移民緩衝
+        </div>
+      </div>
+
+      <!-- Card 4: Aging Rate Crossing -->
+      <div class="card relative overflow-hidden border-l-4 border-l-purple-500">
+        <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">65歲以上人口佔比 (2023)</div>
+        <div class="text-3xl font-black text-purple-400 mt-2 flex items-baseline gap-2">
+          14.32%
+          <span class="text-xs font-normal text-slate-400">進入「高齡社會」</span>
+        </div>
+        <div class="text-xs text-slate-400 mt-3 pt-3 border-t border-slate-700/50">
+          65歲人口超過 14% 門檻，且高齡化加速度超越日韓歷史紀錄
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Chart 1: The 'Old Before Rich' Gap -->
+      <div class="card lg:col-span-7 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                📊 跨入高齡社會 (65歲人口達14%) 時的「人均所得懸殊差距」
+              </h2>
+              <p class="text-xs text-slate-400">比較主要經濟體在進入 14% 高齡社會門檻時，所擁有的經濟底蘊 (人均GDP, 現價美元)</p>
+            </div>
+            <span class="badge bg-amber-500/20 text-amber-300 border border-amber-500/30">差距 3~6 倍</span>
+          </div>
+
+          <!-- SVG Bar Chart -->
+          <div class="w-full mt-4 bg-slate-900/60 p-4 rounded-xl border border-slate-700/60">
+            <svg id="barChart" viewBox="0 0 650 260" class="w-full h-auto">
+              <!-- Grid lines -->
+              <line x1="120" y1="30" x2="620" y2="30" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="80" x2="620" y2="80" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="130" x2="620" y2="130" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="180" x2="620" y2="180" stroke="#334155" stroke-dasharray="3,3" />
+              <line x1="120" y1="230" x2="620" y2="230" stroke="#475569" stroke-width="1.5" />
+
+              <!-- X-Axis Labels -->
+              <text x="120" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$0</text>
+              <text x="245" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$20,000</text>
+              <text x="370" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$40,000</text>
+              <text x="495" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$60,000</text>
+              <text x="620" y="248" fill="#94a3b8" font-size="11" text-anchor="middle">$80,000</text>
+
+              <!-- Bars -->
+              <!-- USA -->
+              <text x="110" y="55" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">美國 (USA)</text>
+              <rect x="120" y="40" width="465" height="24" rx="4" fill="#3b82f6" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>美國達 14% 高齡化時人均 GDP 約 $55,000+ (現人均 $82,587)</title>
+              </rect>
+              <text x="595" y="56" fill="#60a5fa" font-size="11" font-weight="bold">$55,000+</text>
+
+              <!-- Germany -->
+              <text x="110" y="105" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">德國 (DEU)</text>
+              <rect x="120" y="90" width="360" height="24" rx="4" fill="#6366f1" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>德國已發展成熟，高社福保障體系，現人均 $54,777</title>
+              </rect>
+              <text x="490" y="106" fill="#a5b4fc" font-size="11" font-weight="bold">已開發成熟</text>
+
+              <!-- Japan -->
+              <text x="110" y="155" fill="#f8fafc" font-size="12" font-weight="600" text-anchor="end">日本 (JPN)</text>
+              <rect x="120" y="140" width="245" height="24" rx="4" fill="#06b6d4" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>日本 1994 年邁入 14% 時人均 GDP 高達 $39,000</title>
+              </rect>
+              <text x="375" y="156" fill="#67e8f9" font-size="11" font-weight="bold">$39,000 (1994)</text>
+
+              <!-- China -->
+              <text x="110" y="205" fill="#fca5a5" font-size="12" font-weight="bold" text-anchor="end">中國 (CHN)</text>
+              <rect x="120" y="190" width="81" height="24" rx="4" fill="#ef4444" class="hover:opacity-80 transition-all cursor-pointer">
+                <title>中國跨入 14% 時人均僅約 $12,951，典型的「未富先老」</title>
+              </rect>
+              <text x="210" y="206" fill="#ef4444" font-size="12" font-weight="extrabold">$12,951 (僅日本1/3)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs bg-slate-800/60 p-3 rounded-lg border border-slate-700/50 text-slate-300">
+          <strong class="text-amber-400">💡 數據解讀：</strong>
+          日、德、美跨入高齡社會時，早已走完工業化資本原始累積期，建立了厚實的私人國民財富、海外淨資產與健全養老基金制度；而中國在人均僅 1.3 萬美元時就撞上了人口天花板。
+        </div>
+      </div>
+
+      <!-- Interactive Calculator for Students -->
+      <div class="card lg:col-span-5 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              🧮 學生互動模擬器：勞動力衰退衝擊
+            </h2>
+          </div>
+          <p class="text-xs text-slate-400 mb-4">
+            根據柯布-道格拉斯生產函數 (Cobb-Douglas)，當勞動力開始負成長時，經濟體需要靠多少「全要素生產力 (TFP)」來補足缺口？
+          </p>
+
+          <div class="space-y-4 bg-slate-900/60 p-4 rounded-xl border border-slate-700/60">
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-slate-300">預估年度勞動人口縮減率:</span>
+                <span id="laborDropVal" class="text-red-400 font-bold">-1.0 % / 年</span>
+              </div>
+              <input type="range" id="laborDropInput" min="0.2" max="2.5" step="0.1" value="1.0" class="w-full accent-red-500 cursor-pointer">
+              <div class="flex justify-between text-[11px] text-slate-500 mt-1">
+                <span>-0.2% (溫和)</span>
+                <span>-1.0% (目前態勢)</span>
+                <span>-2.5% (極端加速)</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-700">
+              <div class="text-xs text-slate-300 font-semibold mb-2">模型計算補償結果：</div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700/80">
+                  <div class="text-[11px] text-slate-400">每年 GDP 潛在損失</div>
+                  <div id="gdpLoss" class="text-base font-bold text-red-400">-0.60% GDP</div>
+                </div>
+                <div class="bg-slate-800 p-2.5 rounded-lg border border-slate-700/80">
+                  <div class="text-[11px] text-slate-400">所需 TFP/科技補償成長</div>
+                  <div id="tfpRequired" class="text-base font-bold text-emerald-400">+0.86% 年增率</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs text-slate-400 italic">
+          * 結論：若中所得經濟體無法在短時間內完成產業升級（從勞力密集轉為高科技自動化），人口負成長將直接侵蝕潛在經濟增長率。
+        </div>
+      </div>
+    </div>
+
+    <!-- Core Analytical Conclusions Section -->
+    <div class="card space-y-6">
+      <div class="border-b border-slate-700 pb-4">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+          🎯 深入剖析：為何「未富先老」對中所得國家是毀滅性考驗？
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Why Aging is Disproportionately Harder to Handle for Middle-Income Nations than Rich Nations
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Factor 1: Fiscal & Pension Buffer -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-red-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-lg mb-3">
+            1
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">年金與社福「蓄水池」匱乏</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            高所得國（如美、德）歷經數十年工業利潤積累，擁有龐大規模的國民儲蓄與退休信託。中所得國社會保險起步晚、家庭人均財富淨值低，在尚未完成充分儲蓄前就要面臨龐大的養老金提領潮，容易引發地方財政空前赤字。
+          </p>
+        </div>
+
+        <!-- Factor 2: Industrial Chain & Productivity -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-amber-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg mb-3">
+            2
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">產業鏈升級的「夾心餅乾」</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            人口紅利消失導致工資上漲，低階製造業加速向東南亞、印度外遷；然而往高階半導體、高附加價值服務業升級時，又面臨歐美日技術壁壘與資本密集競爭。缺乏廉價勞力卻又尚未掌握定價權，易陷入<strong>中等收入陷阱</strong>。
+          </p>
+        </div>
+
+        <!-- Factor 3: Healthcare & Regional Inequality -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-emerald-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg mb-3">
+            3
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">醫療資源與城鄉結構撕裂</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            成熟國家城鄉醫療與照護基礎設施較為均衡。在中國等中所得國，數億青年向一線大城市流動，造成廣大農村與中小城鎮出現大量「空巢長者」，照護資源極度短缺，對家庭結構與勞動生產率產生次級擠壓效應。
+          </p>
+        </div>
+
+        <!-- Factor 4: Immigration Elasticity -->
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/70 hover:border-blue-500/50 transition-all">
+          <div class="w-9 h-9 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-lg mb-3">
+            4
+          </div>
+          <h3 class="text-base font-bold text-white mb-2">缺乏國際移民吸納能力</h3>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            美國、加拿大、歐洲可透過高人均薪資與優渥生活條件，從全球吸納數以百萬計的高素質技術移民與藍領勞工來平抑高齡化。而中所得國薪資吸引力不足、語言與制度門檻高，幾乎<strong>無法藉由外來移民</strong>重組人口金字塔。
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Student Assignment Guide & Code Inspection -->
+    <div class="card bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border-blue-500/40 space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="text-blue-400 text-xl">📘</span>
+        <h3 class="text-lg font-bold text-blue-300">給學生的作業撰寫指引 (Student Assignment Guide)</h3>
+      </div>
+      <div class="text-xs text-slate-300 space-y-2">
+        <p>這份作業示範了如何透過 <strong>實證開放數據 API</strong> 結合 <strong>總體經濟理論</strong> 完成一份專業的政策分析報告：</p>
+        <ol class="list-decimal list-inside space-y-1.5 ml-1 text-slate-300">
+          <li><strong>數據抓取 (Data Retrieval)：</strong>透過 World Bank Data360 API 擷取 <code>WB_WDI</code> 資料庫指標（如生育率、老年人口比重、人均 GDP）。</li>
+          <li><strong>指標選取 (Indicator Selection)：</strong>設定對照組（中所得 vs. 高所得、已開發 vs. 新興市場），避免單一孤立數據。</li>
+          <li><strong>可視化表達 (Data Visualization)：</strong>運用清晰圖表展現結構性斷層（如跨入高齡社會時的所得差距），強化說服力。</li>
+          <li><strong>機制性歸因 (Mechanistic Analysis)：</strong>不只停留在「人口老了」，要深入到財政年金、產業升級、城鄉照護與移民彈性等四維度。</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-slate-500 py-6 border-t border-slate-800">
+      World Bank Data360 Demonstration Project • Created for Academic and Educational Use
+    </footer>
+
+  </div>
+
+  <script>
+    const input = document.getElementById('laborDropInput');
+    const label = document.getElementById('laborDropVal');
+    const gdpLoss = document.getElementById('gdpLoss');
+    const tfpRequired = document.getElementById('tfpRequired');
+
+    function updateSim() {
+      const drop = parseFloat(input.value);
+      label.innerText = `-${drop.toFixed(1)} % / 年`;
+      const loss = drop * 0.6;
+      gdpLoss.innerText = `-${loss.toFixed(2)}% GDP`;
+      const tfp = loss * 1.43;
+      tfpRequired.innerText = `+${tfp.toFixed(2)}% 年增率`;
+    }
+
+    input.addEventListener('input', updateSim);
+    updateSim();
+  </script>
+</body>
+</html>
